@@ -1,0 +1,13 @@
+model User {
+  id                   String   @id @default(uuid())
+  email                String   @unique
+  passwordHash         String
+  fullName             String
+  profilePictureUrl    String?  
+  isVerified           Boolean  @default(false)
+  verificationCode     String?  
+  verificationCodeExpiry DateTime?
+
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
