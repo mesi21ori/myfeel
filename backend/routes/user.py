@@ -3,7 +3,6 @@ from models.user import User
 from utils.auth_guard import jwt_required
 
 user_bp = Blueprint("user", __name__)
-
 @user_bp.route('/profile', methods=['GET'])
 @jwt_required
 def get_profile():

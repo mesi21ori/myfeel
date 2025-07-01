@@ -7,12 +7,15 @@ from datetime import datetime, timedelta
 import bcrypt
 import random
 from utils.jwt_helper import generate_token
+from datetime import datetime
 
 
 auth_bp = Blueprint('auth', __name__)
 
-@auth_bp.route('/request-verification', methods=['POST'])
+@auth_bp.route('/request-verification', methods=['POST', 'OPTIONS'])
 def request_verification():
+    if request.method == 'OPTIONS':
+        return '', 200
     data = request.json
     email = data.get('email')
     password = data.get('password')
@@ -33,8 +36,12 @@ def request_verification():
 
     return jsonify({'message': 'Verification code sent to email'}), 200
 
-@auth_bp.route('/verify-email', methods=['POST'])
+
+@auth_bp.route('/verify-email', methods=['POST', 'OPTIONS'])
 def verify_email():
+    if request.method == 'OPTIONS':
+        return '', 200
+
     data = request.json
     email = data.get('email')
     code = data.get('code')
